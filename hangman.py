@@ -17,11 +17,12 @@ import string
 
 
 def get_valid_word(words):
-    word = random.choice(words)  # randomly chooses something from the list
-    while '-' in word or ' ' in word:
-        word = random.choice(words)
+    candidates = [word.upper() for word in words
+                  if word and all(letter in string.ascii_letters for letter in word)]
+    if not candidates:
+        raise ValueError("Word list contains no playable ASCII words")
+    return random.choice(candidates)
 
-    return word.upper()
 
 
 def hangman():
